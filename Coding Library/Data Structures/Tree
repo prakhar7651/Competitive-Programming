@@ -1,20 +1,20 @@
-#include<iostream>
-#include<vector>
-#include<climits>
-#include<algorithm>
-#include <cmath>
-#include<map>
-#define loop(n) for(int i=0;i<n;i++)
-#define temp_input(x) int x;cin>>x;
+#include<bits/stdc++.h>
 #define eb emplace_back
 #define mp make_pair
 #define ll long long
+#define ull unsigned ll
+#define rep(i,n) for(int i = 0;i<n;i++)
+#define REP(i,k,n) for(int i=k;i<n;i++)
+#define sz(x) ((int)x.size())
+#define IOS ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 #define b_search binary_search
-#define IOS ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define null -999999999
-ll int min(ll a,ll b){return a<b?a:b;}
-ll int max(ll a,ll b){return a>b?a:b;}
+#define largest *max_element
+#define smallest *min_element
 using namespace std;
+ll int Min(ll a,ll b){return a<b?a:b;}
+ll int Max(ll a,ll b){return a>b?a:b;}
+ll int Abs(ll a){ return a<0?-a:a;}
+ll int GIF(ll a,ll b){return a/b+(a%b!=0);}
 class  Node{
 public:
     bool isNull = true;
@@ -25,13 +25,8 @@ public:
     Node* right;
     Node* parent;
     int height =0;
-    int key = null;
+    int key = -999999999;
 };
-
-void printInOrder(Node node);
-
-void print(vector<Node> vector, int height,int cons,int len);
-
 bool isLeaf(Node* N)
 {
     if(N->isLeftNull&&N->isRightNull)
@@ -232,7 +227,56 @@ Node* getRoot(Node* X)
         return X;
     else return getRoot(X->parent);
 }
-int main()
+string getString(int n,int len)
+{
+    int x = log10(abs(n))+1;
+    string a(len-x,' ');
+    return a;
+}
+void print(vector<Node> nodes, int height,int cons,int len) {
+    string space(len,' ');
+    for(int i=0;i<pow(2,height-1)-1;i++)
+    cout<<space;
+    string s((pow(2,height)-1)*len,' ');
+    for(int i=0;i<nodes.size();i++)
+    {
+        if(nodes[i].key==cons)
+            cout<<space;
+        else
+            cout<<nodes[i].key<<getString(nodes[i].key,len);
+        cout<<s;
+    }
+    cout<<endl<<endl;
+    if(height==1)
+        return;
+    vector<Node>pass;
+    for(int i=0;i<nodes.size();i++)
+    {
+        if(nodes[i].isLeftNull)
+        {
+           Node X;
+           X.key = cons;
+           pass.eb(X);
+        } else
+            pass.eb(*nodes[i].left);
+        if(nodes[i].isRightNull)
+        {
+            Node X;
+            X.key = cons;
+            pass.eb(X);
+        } else
+            pass.eb(*nodes[i].right);
+    }
+    print(pass,height-1,cons,len);
+}
+void printInOrder(Node node) {
+    if(!node.isLeftNull)
+        printInOrder(*node.left);
+    cout<<node.key<<" ";
+    if(!node.isRightNull)
+        printInOrder(*node.right);
+}
+int fake_main()
 {
     int n;
     cin>>n;
@@ -257,9 +301,10 @@ int main()
     X.isRightNull = true;
     X.isLeftNull = true;
     X.isParentNull = true;
-    loop(n-1)
+    for(int i=0;i<n-1;i++)
     {
-        temp_input(x);
+        int x;
+        cin >> x;
         key = max(key,x);
         Insert(x,getRoot(&X));
     }
@@ -270,60 +315,24 @@ int main()
     nodes.eb(root);
     printInOrder(root);
     cout<<endl;
-    int cons = -9999999;
+    int cons = -999999999;
     int len = log10(abs(key))+1;
     print(nodes,root.height,cons,len);
+    return 0;
 }
-string getString(int n,int len)
+void solve()
 {
-    int x = log10(abs(n))+1;
-    string a(len-x,' ');
-    return a;
+    fake_main();
 }
-void print(vector<Node> nodes, int height,int cons,int len) {
-    string space(len,' ');
-    loop(pow(2,height-1)-1)
-    cout<<space;
-    string s((pow(2,height)-1)*len,' ');
-    loop(nodes.size())
+int32_t main()
+{
+    IOS;
+    //freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+    int tc = 1;
+    cin >> tc;
+    while(tc--)
     {
-        if(nodes[i].key==cons)
-            cout<<space;
-        else
-            cout<<nodes[i].key<<getString(nodes[i].key,len);
-        cout<<s;
+        solve();
     }
-    cout<<endl<<endl;
-    if(height==1)
-        return;
-    vector<Node>pass;
-    loop(nodes.size())
-    {
-        if(nodes[i].isLeftNull)
-        {
-           Node X;
-           X.key = cons;
-           pass.eb(X);
-        } else
-            pass.eb(*nodes[i].left);
-        if(nodes[i].isRightNull)
-        {
-            Node X;
-            X.key = cons;
-            pass.eb(X);
-        } else
-            pass.eb(*nodes[i].right);
-    }
-    print(pass,height-1,cons,len);
+    return 0;
 }
-
-void printInOrder(Node node) {
-    if(!node.isLeftNull)
-        printInOrder(*node.left);
-    cout<<node.key<<" ";
-    if(!node.isRightNull)
-        printInOrder(*node.right);
-
-
-}
-
