@@ -14,6 +14,7 @@ using namespace std;
 #define largest *max_element
 #define smallest *min_element
 #define all(x) x.begin(),x.end()
+#define clr(x) memset(x,0,sizeof(x))
 #define PI 3.1415926535897932384626
 ll int Min(ll a,ll b){return a<b?a:b;}
 ll int Max(ll a,ll b){return a>b?a:b;}
