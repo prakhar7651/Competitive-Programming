@@ -8,6 +8,7 @@ using namespace std;
 #define REP(i,k,n) for(int i=k;k<n?i<n:i>n;k<n?i++:i--)
 #define sz(x) ((int)x.size())
 #define IOS ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+
 #define b_search binary_search
 #define largest *max_element
 #define smallest *min_element
