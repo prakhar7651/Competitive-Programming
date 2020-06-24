@@ -1,0 +1,109 @@
+class Binary_Heap_Explicit_Data {
+
+public:
+    int size;
+    vector<pair<int, int>> arr;
+    int comp;
+
+    Binary_Heap_Explicit_Data(int Max_Heap_1_Min_Heap_0) {
+        this->size = 0;
+        this->comp = Max_Heap_1_Min_Heap_0;
+    }//1 for max_heap 0 for min_heap
+    int getParent(int i) {
+        return (int) (i - 1) / 2;
+    }
+
+    int getLeftChild(int i) {
+        return 2 * i + 1;
+    }
+
+    int getRightChild(int i) {
+        return 2 * (i + 1);
+    }
+
+    bool check(pair<int, int> i, pair<int, int> j) {
+        if (i.first > j.first) {
+            if (comp == 1)
+                return true;
+            else
+                return false;
+        } else if (i.first < j.first) {
+            if (comp == 1)
+                return false;
+            else
+                return true;
+        } else {
+            return false;
+        }
+    }
+
+    void swap_val(int i, int j) {
+        swap(arr.at(i), arr.at(j));
+    }
+
+    void shiftUp(int i) {
+        if (i > 0) {
+            int par_index = getParent(i);
+            if (check(arr[i], arr[par_index])) {
+                swap_val(par_index, i);
+                shiftUp(getParent(i));
+            }
+
+        }
+    }
+
+    void shiftDown(int i) {
+        int max_index = i;
+        int temp = getLeftChild(i);
+        if (temp < size && check(arr[temp], arr[max_index]))
+            max_index = temp;
+        temp = getRightChild(i);
+        if (temp < size && check(arr[temp], arr[max_index]))
+            max_index = temp;
+        if (max_index != i) {
+            swap_val(i, max_index);
+            shiftDown(max_index);
+        }
+
+    }
+
+    void insert(int priority, int data) {
+        arr.insert(arr.begin() + size, make_pair(priority, data));
+        size++;
+        shiftUp(size - 1);
+
+    }
+
+    pair<int, int> extract_Max_Priority() {
+        pair<int, int> result = arr[0];
+        arr[0] = arr[size - 1];
+        size--;
+        shiftDown(0);
+        return result;
+    }
+
+    int remove(int i) {
+        arr[i].first = (comp == 1) ? INT_MAX : INT_MIN;
+        shiftUp(i);
+        extract_Max_Priority();
+        return 1;
+    }
+
+    void changePriority(int index, int new_priority) {
+        int old_priority = arr[index].first;
+        arr[index].first = new_priority;
+        if (new_priority > old_priority) {
+            if (comp == 1)
+                shiftUp(index);
+            else
+                shiftDown(index);
+        } else {
+            if (new_priority < old_priority)
+                if (comp == 1)
+                    shiftDown(index);
+                else
+                    shiftUp(index);
+        }
+    }
+};
+
