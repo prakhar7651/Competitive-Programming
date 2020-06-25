@@ -11,6 +11,7 @@ using namespace std;
 #define b_search binary_search
 #define largest *max_element
 #define smallest *min_element
+
 #define all(x) x.begin(),x.end()
 #define clr(x) memset(x,0,sizeof(x))
 #define PI 3.1415926535897932384626
