@@ -6,7 +6,7 @@ struct Weighted_Graph{
     int size;
     bool directed;
     vector<bool> visited;
-    vector<long> dist;
+    vector<long long int> dist;
     vector<int> prev;
     vector<vector<int>>graph;
     vector<vector<int>>weight;
@@ -78,7 +78,7 @@ vector<int> getConnectedComponents(Weighted_Graph* g)
 void BellManFord(Weighted_Graph* g,int nodeS)//no negative cycles in graph
 {
     for (int i = 0; i < g->size; i++)
-        g->dist[i] = LONG_MAX;
+        g->dist[i] = LONG_LONG_MAX;
     g->dist[nodeS] = 0;
     g->prev[nodeS] = -1;
     bool f = true;
@@ -115,7 +115,7 @@ bool hasNegativeCycle(Weighted_Graph* g)
     for(auto&node:space)
     {
        for (int i = 0; i < g->size; i++)
-            g->dist[i] = LONG_MAX;
+            g->dist[i] = LONG_LONG_MAX;
         g->dist[node] = 0;
         int c = g->size;
         c--;
@@ -127,7 +127,7 @@ bool hasNegativeCycle(Weighted_Graph* g)
             {
                 auto nodes = g->graph[i].begin();
                 auto cost = g->weight[i].begin();
-                if(g->dist[i]!=LONG_MAX)
+                if(g->dist[i]!=LONG_LONG_MAX)
                 {
                     while(nodes!=g->graph[i].end())
                     {
@@ -146,7 +146,7 @@ bool hasNegativeCycle(Weighted_Graph* g)
         {
             auto nodes = g->graph[i].begin();
             auto cost = g->weight[i].begin();
-            if(g->dist[i]!=LONG_MAX)
+            if(g->dist[i]!=LONG_LONG_MAX)
             {
                 while(nodes!=g->graph[i].end())
                 {
