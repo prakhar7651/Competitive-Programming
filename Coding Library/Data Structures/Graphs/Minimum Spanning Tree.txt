@@ -1,0 +1,43 @@
+struct compEdge{
+    bool operator()(pair<pair<int,int>,int>A,pair<pair<int,int>,int>B)
+    {
+        return A.second>B.second;
+    }
+};
+vector<pair<int,int>> MST(Weighted_Graph* g,int root = 0)//using Prim's Algorithm
+{
+    vector<pair<int,int>>res;
+    for (int i = 0; i < g->size; i++)
+    {
+        g->visited[i] = false;
+    }
+    g->visited[root] = true;
+    priority_queue<pair<pair<int,int>,int>,vector<pair<pair<int,int>,int>>,compEdge> edges;
+    for (int i = 0; i < g->graph[root].size(); i++)
+    {
+        edges.push({{root,g->graph[root][i]},g->weight[root][i]});
+    }
+    while(!edges.empty())
+    {
+        auto edge = edges.top().first;
+        while(g->visited[edge.second])
+        {
+            edges.pop();
+            if(edges.empty())
+                break;
+            edge = edges.top().first;
+        }
+        if(edges.empty())
+            break;
+        edges.pop();
+        g->visited[edge.second] = true;
+        res.emplace_back(edge);
+        for (int i = 0; i < g->graph[edge.second].size(); i++)
+        {
+            if(!g->visited[g->graph[edge.second][i]])
+                edges.push({{edge.second,g->graph[edge.second][i]},g->weight[edge.second][i]});
+        }
+        
+    }
+    return res;
+}
