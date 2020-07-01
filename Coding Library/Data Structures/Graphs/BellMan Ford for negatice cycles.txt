@@ -1,0 +1,85 @@
+void setInf(Weighted_Graph* g,int node,bool* mask)
+{
+    if((*(mask+node)))
+        return;
+    g->dist[node] = LONG_LONG_MIN;
+    *(mask+node) = true;
+    for(auto&it:g->graph[node])
+        setInf(g,it,mask);
+}
+void setInfiniteArbritage(Weighted_Graph* g,vector<vector<int>> cycles)
+{
+    bool mask[g->size];
+    memset(mask,0,sizeof(mask));
+    for(int i=0;i<cycles.size();i++)
+    {
+        for(int j=0;j<cycles[i].size();j++)
+        {
+            setInf(g,cycles[i][j],mask);
+        }
+    }
+}
+void BellManFord(Weighted_Graph* g,int nodeS)
+{
+    for (int i = 0; i < g->size; i++)
+        g->dist[i] = LONG_LONG_MAX;
+    g->dist[nodeS] = 0;
+    g->prev[nodeS] = -1;
+    bool f = true;
+    int c = g->size;
+    c--;
+   while(f&&c--)
+    {
+        
+        f = false;
+      for (int i = 0; i < g->size; i++)
+        {
+            auto nodes = g->graph[i].begin();
+            auto cost = g->weight[i].begin();
+            if(g->dist[i]!=LONG_LONG_MAX)
+            {
+                while(nodes!=g->graph[i].end())
+                {
+                    if((g->dist[*nodes])>(g->dist[i]+(*cost)))
+                    {
+                        g->dist[*nodes] = g->dist[i]+(*cost);
+                        g->prev[*nodes] = i;
+                        f = true;
+                    }advance(nodes,1);
+                    advance(cost,1);
+                }
+            }
+        }
+    }
+    vector<int> neg;
+    for (int i = 0; i < g->size; i++)
+    {
+        auto nodes = g->graph[i].begin();
+        auto cost = g->weight[i].begin();
+        if(g->dist[i]!=LONG_LONG_MAX)
+        {
+            while(nodes!=g->graph[i].end())
+            {
+                if((g->dist[*nodes])>(g->dist[i]+*cost))
+                {
+                    neg.emplace_back(*nodes);
+                }
+                advance(nodes,1);
+                advance(cost,1);
+            }
+        }
+    }
+    vector<vector<int>>cycles(neg.size());
+    for(c=0;c<(int)neg.size();c++)
+    {
+        int nodeU = neg[c];
+        for(int i=0;i<g->size;i++)
+            nodeU = g->prev[nodeU];
+        int y = g->prev[nodeU];
+        while(y!=nodeU)
+            cycles[c].emplace_back(y),y = g->prev[y];
+        cycles[c].emplace_back(nodeU);
+    }
+    setInfiniteArbritage(g,cycles);
+    
+}

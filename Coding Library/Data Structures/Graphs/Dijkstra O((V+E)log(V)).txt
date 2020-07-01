@@ -1,0 +1,44 @@
+void Dijkstra(Weighted_Graph* g,int nodeS)
+{
+    for (int i = 0; i < g->size; i++)
+    {  
+         g->dist[i] = INT_MAX;
+         g->visited[i] = false;
+    }
+    g->dist[nodeS] = 0;
+    g->prev[nodeS]=-1;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>H;
+    for (int i = 0; i < g->size; i++)
+    {
+        H.push({g->dist[i],i});
+    }
+    while(!H.empty())
+    {
+        int nodeU;
+        nodeU = H.top().second;
+        while(g->dist[nodeU]!=H.top().first)
+        {
+            H.pop();
+            if(H.empty())
+            break;
+            nodeU = H.top().second;
+        }
+        if(H.empty())
+        break;
+        H.pop();
+        g->visited[nodeU]=true;
+        auto nodes = g->graph[nodeU].begin();
+        auto cost  = g->weight[nodeU].begin();
+        while((g->dist[nodeU]!=INT_MAX)&&(nodes!=g->graph[nodeU].end()))
+        {
+            if((g->dist[*nodes])>(g->dist[nodeU]+(*cost)))
+            {
+                g->dist[*nodes] = g->dist[nodeU]+*cost;
+                g->prev[*nodes] = nodeU;
+                H.push({g->dist[*nodes],*nodes});
+            }
+            advance(nodes,1);
+            advance(cost,1);
+        }
+    }
+}
