@@ -14,9 +14,6 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define clr(x) memset(x,0,sizeof(x))
 #define PI 3.1415926535897932384626
-ll int Min(ll a,ll b){return a<b?a:b;}
-ll int Max(ll a,ll b){return a>b?a:b;}
-ll int Abs(ll a){ return a<0?-a:a;}
 ll int GIF(ll a,ll b){return a/b+(a%b!=0);}
 ll unsigned int bin_exp(ll int a,ll int b){ll unsigned result = 1;while(b){if(b&1)result*=a;a*=a;b>>=1;}return result;}
 mt19937_64 rang(chrono::high_resolution_clock::now().time_since_epoch().count());
