@@ -1,0 +1,102 @@
+#include<iostream>
+#include<vector>
+#include<queue>
+#include<math.h>
+#include<iomanip>
+using namespace std;
+struct Point{
+    int x,y;
+    int UID;
+    Point(int u,int v,int index)
+    {
+        x=u;
+        y=v;
+        UID = index;
+    }
+};
+long double getDist(Point A,Point B)
+{
+    long double ans = 0.0;
+    ans = sqrt(pow((A.x-B.x),2)+pow((A.y-B.y),2));
+    return ans;
+}
+struct Plane{
+    int size;
+    vector<Point>plane;
+    vector<vector<Point>>graph;
+    vector<vector<long double>>weight;
+    Plane(int SIZE)
+    {
+        size = SIZE;
+        graph = decltype(graph)(size);
+        weight = decltype(weight)(size);
+    }
+    void ipPlane()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            int x,y;
+            cin>>x>>y;
+            plane.emplace_back(Point(x,y,i));
+        }
+        
+    }
+    void createGraph()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if(j==i)
+                    continue;
+                graph[i].emplace_back(plane[j]);
+                weight[i].emplace_back(getDist(plane[i],plane[j]));
+            }
+            
+        }
+        
+    }
+    struct compEdge{
+        bool operator()(pair<pair<Point,Point>,long double>A,pair<pair<Point,Point>,long double>B)
+        {
+            return A.second>B.second;
+        }
+    };
+    vector<pair<Point,Point>> MST(int root = 0)
+    {
+        vector<pair<Point,Point>> res;
+        bool visited[size];
+        for (int i = 0; i < size; i++)
+        {
+            visited[i] = false;
+        }
+        visited[root] = true;
+        priority_queue<pair<pair<Point,Point>,long double>,vector<pair<pair<Point,Point>,long double>>,compEdge> points;
+        for (int i = 0; i < graph[root].size(); i++)
+        {
+            points.push({{plane[root],graph[root][i]},weight[root][i]});
+        }
+        while(!points.empty())
+        {
+            auto edge = points.top().first;
+            while(visited[edge.second.UID])
+            {
+                points.pop();
+                if(points.empty())
+                    break;
+                edge = points.top().first;
+            }
+            if(points.empty())
+                break;
+            points.pop();
+            visited[edge.second.UID] = true;
+            res.emplace_back(edge);
+            for (int i = 0; i < graph[edge.second.UID].size(); i++)
+            {
+                if(!visited[graph[edge.second.UID][i].UID])
+                    points.push({{edge.second,graph[edge.second.UID][i]},weight[edge.second.UID][i]});
+            }
+        }
+        return res;
+    }
+};
