@@ -78,7 +78,7 @@ vector<int> getConnectedComponents(Weighted_Graph* g)
 void BellManFord(Weighted_Graph* g,int nodeS)//no negative cycles in graph
 {
     for (int i = 0; i < g->size; i++)
-        g->dist[i] = INT_MAX;
+        g->dist[i] = LONG_MAX;
     g->dist[nodeS] = 0;
     g->prev[nodeS] = -1;
     bool f = true;
@@ -90,7 +90,7 @@ void BellManFord(Weighted_Graph* g,int nodeS)//no negative cycles in graph
         {
             auto nodes = g->graph[i].begin();
             auto cost = g->weight[i].begin();
-            if(g->dist[i]!=INT_MAX)
+            if(g->dist[i]!=LONG_LONG_MAX)
             {
                 while(nodes!=g->graph[i].end())
                 {

@@ -10,7 +10,7 @@ struct Graph{
     vector<bool> visited;
     vector<int> pre;
     vector<int> post;
-    vector<int> dist;
+    vector<long long int> dist;
     vector<int> prev;
     int clk=1;
     vector<vector<int>>graph;
