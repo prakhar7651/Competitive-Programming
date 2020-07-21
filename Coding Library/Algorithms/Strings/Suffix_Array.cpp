@@ -6,21 +6,16 @@ using namespace std;
 
 int charToIndex(char c) // change accordingly
 {
-    switch (c)
-    {
-    case '$':return 0;
-    case 'A':return 1;
-    case 'C':return 2;
-    case 'G':return 3;
-    case 'T':return 4;
-    }
+    if(c == '$')
+        return 0;
+    else return c-96;
 }
-void SortCharacters(string* s,int* order,int length) //counting sort
+void SortCharacters(string* s,int* order) //counting sort
 {
-    int count[length] = {0};
+    int count[27] = {0};
     for (int i = 0; i < s->length(); i++)
         count[charToIndex(s->at(i))]++;
-    for (int i = 1; i < length; i++)
+    for (int i = 1; i < 27; i++)
         count[i] += count[i-1];
     for (int i = s->length()-1; i >= 0; i--)
     {
@@ -76,10 +71,12 @@ void updateClass(string* s,int* newOrder,int* Equi_Class,int L,int* newEqui_Clas
     }
     
 }
-void BuildSuffixArray(string* s,int* order,int length)//order stores starting indexes of suffixes and length denotes number of differnet characters present in the string
+void BuildSuffixArray(string* s,int* order)//(S SHOULD HAVE $ IN THE END)order stores starting indexes of suffixes and length denotes number of differnet characters present in the string
 {
+    if(s->at(s->length()-1) != '$')
+        s->append("$");
     int Equi_Class[s->length()];
-    SortCharacters(s,order,length);
+    SortCharacters(s,order);
     ComputeCharClass(s,order,Equi_Class);
     int L = 1;
     while(L < s->length())
