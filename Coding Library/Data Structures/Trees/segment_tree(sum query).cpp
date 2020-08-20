@@ -1,62 +1,80 @@
-#include<vector>
-#include<iostream>
+#include<bits/stdc++.h>
+
 using namespace std;
-struct SegmentTree
-{
-    int size;
-    vector<int>arr;
-    vector<int>tree;
-    SegmentTree(int n)
-    {
-        size = n;
-        arr = decltype(arr)(n);
-        tree = decltype(tree)(4*n);
-    }
-    void ip_array()
-    {
-        for (int i = 0; i < size; i++)
-        {
-            cin>>arr[i];
-        }
 
-    }
-    void build(int v,int tl,int tr)
+struct SegTree{
+  int size;
+  vector<long long>arr;
+  SegTree(int n)
+  {
+    size = 1;
+    while(size <= n)size <<= 1;
+    size <<= 1;
+    arr.assign(size,0);   
+  }
+  void fill(int* a,int x,int l,int r)
+  {
+    if(l==(r-1))
     {
-        if(tl==tr)
-            tree[v] = arr[tl];
-        else
-        {
-            int tm = (tl+tr)>>1;
-            build(2*v+1,tl,tm);
-            build(2*v+2,tm+1,tr);
-            tree[v] = tree[2*v+1]+tree[2*v+2];
-        }
+      arr[x] = *(a+l);
+      return;
     }
-    int sum(int v,int tl,int tr,int l,int r)
-    {
-        if(l>r)
-            return 0;
-        if((l==tl)&&(r==tr))
-            return tree[v];
-        else
-        {
-            int tm = (tl+tr)>>1;
-            return sum(v*2+1,tl,tm,l,min(r,tm)) + sum(v*2+2,tm+1,tr,max(l,tm+1),r);
-        }
-    }
-    void update(int v,int tl,int tr,int pos,int new_Val)
-    {
-        if(tl==tr)
-            tree[v] = new_Val;
-        else
-        {
-            int tm = (tl+tr)>>1;
-            if(tm>=pos)
-                update(2*v+1,tl,tm,pos,new_Val);
-            else
-                update(2*v+2,tm+1,tr,pos,new_Val);
-            tree[v] = tree[2*v+1]+tree[2*v+2];
-        }
-
-    }
+    int m = l + (r-l)/2;
+    fill(a,2*x+1,l,m);
+    fill(a,2*x+2,m,r);
+    arr[x] = arr[2*x+1] + arr[2*x+2];
+  }
+  long long getSum(int l,int r,int low,int high,int x)
+  {
+    if(low<=l && (r-1) <= high)
+      return arr[x];
+    if(l > high || (r-1) < low)
+      return 0;
+    int m = l + (r-l)/2;
+    return getSum(l,m,low,high,2*x+1) + getSum(m,r,low,high,2*x+2);
+  }
+  void update(int i,int del,int l,int r,int x)
+  {
+    if ( i < l || i >= r)
+      return;
+    if(i>=l && i < r)
+      {
+        arr[x] += del;
+        if(l == (r-1))
+          return;
+        int m = l + ((r-l)>>1);
+        if(i < m)
+          update(i,del,l,m,2*x+1);
+        else update(i,del,m,r,2*x+2);
+      }
+  }
 };
+int main()
+{
+  freopen("input.txt","r",stdin);
+  int n,m;
+  cin>>n>>m;
+  int a[n];
+  for (int i = 0; i < n; i++)
+  {
+    cin>>a[i];
+  }
+  SegTree stt(n);
+  cout<<"\n";
+  stt.fill(a,0,0,n);
+  for (int i = 0; i < m; i++)
+  {
+    int op,l,r;
+    cin>>op>>l>>r;
+    if(op == 1)
+    {
+      stt.update(l,r-a[l],0,n,0);
+      a[l]=r;
+    }else
+    {
+      cout<<stt.getSum(0,n,l,r-1,0)<<"\n";
+    }
+    
+  }
+  
+}
