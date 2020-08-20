@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include<vector>
 
 using namespace std;
 
@@ -49,32 +49,3 @@ struct SegTree{
       }
   }
 };
-int main()
-{
-  freopen("input.txt","r",stdin);
-  int n,m;
-  cin>>n>>m;
-  int a[n];
-  for (int i = 0; i < n; i++)
-  {
-    cin>>a[i];
-  }
-  SegTree stt(n);
-  cout<<"\n";
-  stt.fill(a,0,0,n);
-  for (int i = 0; i < m; i++)
-  {
-    int op,l,r;
-    cin>>op>>l>>r;
-    if(op == 1)
-    {
-      stt.update(l,r-a[l],0,n,0);
-      a[l]=r;
-    }else
-    {
-      cout<<stt.getSum(0,n,l,r-1,0)<<"\n";
-    }
-    
-  }
-  
-}
