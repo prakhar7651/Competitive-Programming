@@ -23,7 +23,7 @@ const int mod = 1'000'000'007; //1e9+7
 const int N = 1e5+5;
 int solve()
 {
-       
+    return 0;
 }
 int32_t main()
 {
