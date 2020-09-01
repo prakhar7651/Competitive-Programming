@@ -21,7 +21,7 @@ mt19937_64 rang(chrono::high_resolution_clock::now().time_since_epoch().count())
 int rng(int lim) {uniform_int_distribution<int> uid(0,lim-1);return uid(rang);}
 const int mod = 1'000'000'007; //1e9+7
 const int N = 1e5+5;
-void solve()
+int solve()
 {
        
 }
