@@ -1,4 +1,28 @@
-#include<bits/stdc++.h>
+/*
+ 
+                       _oo0oo_ 
+                      o8888888o 
+                      88" . "88 
+                      (| -_- |) 
+                      0\  =  /0 
+                    ___/`---'\___ 
+                  .' \\|     |// '. 
+                 / \\|||  :  |||// \ 
+                / _||||| -:- |||||- \ 
+               |   | \\\  -  /// |   | 
+               | \_|  ''\---/''  |_/ | 
+               \  .-\__  '-'  ___/-. / 
+             ___'. .'  /--.--\  `. .'___ 
+          ."" '<  `.___\_<|>_/___.' >' "". 
+         | | :  `- \`.;`\ _ /`;.`/ - ` : | | 
+         \  \ `_.   \_ __\ /__ _/   .-` /  / 
+     =====`-.____`.___ \_____/___.-`___.-'===== 
+                       `=---=' 
+keep calm and don't hurt the computer.
+created by -> prakhar
+Thu May 06 2021
+*/
+#include"bits/stdc++.h"
 using namespace std;
 #define eb emplace_back
 #define mp make_pair
@@ -14,15 +38,23 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define clr(x) memset(x,0,sizeof(x))
 #define PI 3.1415926535897932384626
-ll int GIF(ll a,ll b){return a/b+(a%b!=0);}
-map<int,int> Factorize(ull int n){map<int,int> result;int i=2;while(i*i<=n){while(n%i==0)result[i]++,n/=i;i++;}if(n>1)result[n]++;return result;}
-ll unsigned int bin_exp(ll int a,ll int b){ll unsigned result = 1;while(b){if(b&1)result*=a;a*=a;b>>=1;}return result;}
+ll GIF(ll a,ll b){return a/b+(a%b!=0);}
+map<int,int> Factorize(ull n){map<int,int> result;int i=2;while(i*i<=n){while(n%i==0)result[i]++,n/=i;i++;}if(n>1)result[n]++;return result;}
+ll unsigned bin_exp(ll int a,ll int b){ll unsigned result = 1;while(b){if(b&1)result*=a;a*=a;b>>=1;}return result;}
 mt19937_64 rang(chrono::high_resolution_clock::now().time_since_epoch().count());
 int rng(int lim) {uniform_int_distribution<int> uid(0,lim-1);return uid(rang);}
 const int mod = 1'000'000'007; //1e9+7
 const int N = 1e5+5;
+#define int ll
+#ifdef int
+#define INF __LONG_LONG_MAX__
+#else
+#define INF INT_MAX
+#endif
+
 int solve()
 {
+    
     return 0;
 }
 int32_t main()
