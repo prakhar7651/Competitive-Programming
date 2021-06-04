@@ -19,8 +19,8 @@
      =====`-.____`.___ \_____/___.-`___.-'===== 
                        `=---=' 
 keep calm and don't hurt the computer.
-created by -> prakhar
-Thu May 06 2021
+created by -> ${AUTHOR}
+${DATE}
 */
 #include"bits/stdc++.h"
 using namespace std;
@@ -47,14 +47,16 @@ const int mod = 1'000'000'007; //1e9+7
 const int N = 1e5+5;
 #define int ll
 #ifdef int
-#define INF __LONG_LONG_MAX__
+#define INF LLONG_MAX
+#define negING LLONG_MIN
 #else
 #define INF INT_MAX
+#define negING INT_MIN
 #endif
+
 
 int solve()
 {
-    
     return 0;
 }
 int32_t main()
