@@ -48,10 +48,10 @@ const int N = 1e5+5;
 #define int ll
 #ifdef int
 #define INF LLONG_MAX
-#define negING LLONG_MIN
+#define negINF LLONG_MIN
 #else
 #define INF INT_MAX
-#define negING INT_MIN
+#define negINF INT_MIN
 #endif
 
 
