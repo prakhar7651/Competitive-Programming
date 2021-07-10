@@ -19,19 +19,15 @@
      =====`-.____`.___ \_____/___.-`___.-'===== 
                        `=---=' 
 keep calm and don't hurt the computer.
-created by -> prakhar
-Fri Jun 11 2021
 */
 #include"bits/stdc++.h"
 using namespace std;
 
 #define int ll
 #ifdef int
-#define INF LLONG_MAX
-#define negINF LLONG_MIN
+#define INF 1000000000000000000 //1e18
 #else
-#define INF INT_MAX
-#define negINF INT_MIN
+#define INF 1000000000  //1e9
 #endif
 
 #define ll long long
