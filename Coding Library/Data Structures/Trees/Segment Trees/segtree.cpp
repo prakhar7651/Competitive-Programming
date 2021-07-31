@@ -23,7 +23,7 @@ template<class T> SegmentTree<T>::SegmentTree(std::vector<T> data , T (*combine)
 {
     m_combine = combine;
     m_n = data.size();
-    m_tree = (T*)malloc(sizeof(T) * 4 * m_n);
+    m_tree = new T[4 * m_n];
     build(0 , 0 , m_n - 1, data.data());
 }
 
@@ -31,7 +31,7 @@ template<class T> SegmentTree<T>::SegmentTree(T* data , int n , T (*combine)(T o
 {
     m_combine = combine;
     m_n = n;
-    m_tree = (T*)malloc(sizeof(T) * 4 * m_n);
+    m_tree = new T[4 * m_n];
     build(0 , 0 , m_n - 1, data);
 }
 
