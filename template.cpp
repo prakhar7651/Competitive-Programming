@@ -22,7 +22,6 @@ keep calm and don't hurt the computer.
 created by -> ${AUTHOR}
 ${DATE}
 */
-
 #include"bits/stdc++.h"
 using namespace std;
 
