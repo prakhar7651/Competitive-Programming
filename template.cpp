@@ -49,7 +49,6 @@ map<int,int> Factorize(int n){map<int,int> result;int i=2;while(i*i<=n){while(n%
 int bin_exp(int a,int b){int result = 1;while(b){if(b&1)result*=a;a*=a;b>>=1;}return result;}
 const int mod = 1'000'000'007; //1e9+7
 const int N = 2e5+5;
-
 int solve()
 {
     return 0;
