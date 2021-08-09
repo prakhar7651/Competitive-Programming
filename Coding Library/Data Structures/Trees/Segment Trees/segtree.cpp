@@ -66,7 +66,7 @@ template<class T> T SegmentTree<T>::queryHelper(int v , int tl , int tr , int l 
     if(l == tl && r == tr)
         return m_tree[v];
     int tm = tl + (tr - tl) / 2;
-    if(l <= std::min(tm , tr) && std::max(l , tm + 1) <= r)
+    if(l <= std::min(tm , r) && std::max(l , tm + 1) <= r)
         return m_combine(queryHelper(2 * v + 1, tl , tm , l , std::min(tm , r)) , queryHelper(2 * v + 2 , tm + 1 , tr , std::max(l , tm + 1) , r));
     else if(l <= std::min(tm , r))
             return queryHelper(2 * v + 1, tl , tm , l , std::min(tm , r));
