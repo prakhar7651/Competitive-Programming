@@ -22,8 +22,14 @@ keep calm and don't hurt the computer.
 created by -> ${AUTHOR}
 ${DATE}
 */
-#include"bits/stdc++.h"
-using namespace std;
+
+#ifdef DBG
+    #include "debug.h"
+#else
+    #include "bits/stdc++.h"
+    using namespace std;
+    #define dbg(...)
+#endif
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
