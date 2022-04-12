@@ -6,7 +6,7 @@ class AVLNode{
     
     public:
 
-        AVLNode(const T& value) : data(value) , left(NULL) , right(NULL) , height(1) {}
+        AVLNode(const T& value) : data(value) , left(nullptr) , right(nullptr) , height(1) {}
         ~AVLNode() {}
 
         T data;
@@ -22,14 +22,14 @@ class AVLNode{
 
 template<class T>
 int AVLNode<T>::getHeight(){
-    if(this == NULL)
+    if(this == nullptr)
         return 0;
     return this -> height;
 }
 
 template<class T>
 int AVLNode<T>::getBF(){
-    if(this == NULL)
+    if(this == nullptr)
         return 0;
     return this -> left -> getHeight() - this -> right -> getHeight();
 }
@@ -42,7 +42,7 @@ class AVLTree{
         AVLNode<T>* root;
         int size;
 
-        AVLTree(bool (*_cmp)(T , T)) : cmp(_cmp) , root(NULL) , size(0){}
+        AVLTree(bool (*_cmp)(T , T)) : cmp(_cmp) , root(nullptr) , size(0){}
         ~AVLTree() {}
         
         AVLNode<T>* leftRotate(AVLNode<T>* y);
@@ -77,7 +77,7 @@ void inorder(AVLNode<T>* node);
 
 template<class T>
 AVLNode<T>* AVLTree<T>::_insert(AVLNode<T>* node , T key){
-    if(node == NULL){
+    if(node == nullptr){
         size++;
         return new AVLNode<T>(key);
     }
@@ -103,7 +103,7 @@ AVLNode<T>* AVLTree<T>::_insert(AVLNode<T>* node , T key){
 template<class T>
 AVLNode<T>* AVLTree<T>::_remove(AVLNode<T>* node , T key){
 
-    if(node == NULL)
+    if(node == nullptr)
         return node;
     
     else if(node -> data > key)
@@ -119,14 +119,14 @@ AVLNode<T>* AVLTree<T>::_remove(AVLNode<T>* node , T key){
         
         AVLNode<T>* temp = node;
 
-        if(node -> left == NULL && node -> right)
+        if(node -> left == nullptr && node -> right)
             node = node -> right;
-        else if(node -> right == NULL && node -> left)
+        else if(node -> right == nullptr && node -> left)
             node = node -> left;
 
         if(temp != node){
-            if(temp -> parent == NULL)
-                node -> parent = NULL;
+            if(temp -> parent == nullptr)
+                node -> parent = nullptr;
             else{
                 if(temp -> parent -> left == temp)
                     temp -> parent -> left = node;
@@ -136,17 +136,17 @@ AVLNode<T>* AVLTree<T>::_remove(AVLNode<T>* node , T key){
             }
         }
         else{
-            if(temp -> parent != NULL)
+            if(temp -> parent != nullptr)
                 if(temp -> parent -> left == temp)
-                    temp -> parent -> left = NULL;
+                    temp -> parent -> left = nullptr;
                 else
-                    temp -> parent -> right = NULL;
-            node = NULL;
+                    temp -> parent -> right = nullptr;
+            node = nullptr;
         }
         delete temp;
     }
 
-    if(node == NULL)
+    if(node == nullptr)
         return node;
 
     return balanceAfterDelete(node);
@@ -154,7 +154,7 @@ AVLNode<T>* AVLTree<T>::_remove(AVLNode<T>* node , T key){
 
 template<class T>
 AVLNode<T>* AVLTree<T>::_search(AVLNode<T>* node , T key){
-    if(node == NULL)
+    if(node == nullptr)
         return node;
     if(node->data == key)
         return node;
@@ -173,8 +173,8 @@ AVLNode<T>* AVLTree<T>::rightRotate(AVLNode<T>* root){
     if(root -> left)
         root -> left -> parent = root;
     
-    if(root -> parent == NULL)
-        new_root -> parent = NULL;
+    if(root -> parent == nullptr)
+        new_root -> parent = nullptr;
     else{
         if(root -> parent -> left == root)
             root -> parent -> left = new_root;
@@ -201,8 +201,8 @@ AVLNode<T>* AVLTree<T>::leftRotate(AVLNode<T>* root){
     if(root -> right)
         root -> right -> parent = root;
 
-    if(root -> parent == NULL){
-        new_root -> parent = NULL;
+    if(root -> parent == nullptr){
+        new_root -> parent = nullptr;
     }
     else{
         if(root -> parent -> left == root)
@@ -291,18 +291,18 @@ AVLNode<T>* AVLTree<T>::balanceAfterDelete(AVLNode<T>* node){
 
 template<class T>
 AVLNode<T>* AVLTree<T>::findMin(AVLNode<T>* node){
-    if(node == NULL)
+    if(node == nullptr)
         return node;
-    if(node -> left == NULL)
+    if(node -> left == nullptr)
         return node;
     return findMin(node -> left);
 }
 
 template<class T>
 AVLNode<T>* AVLTree<T>::findMax(AVLNode<T>* node){
-    if(node == NULL)
+    if(node == nullptr)
         return node;
-    if(node -> right == NULL)
+    if(node -> right == nullptr)
         return node;
     return findMax(node -> right);
 }
@@ -316,7 +316,7 @@ AVLNode<T>* AVLTree<T>::successor(AVLNode<T>* node){
             return node -> parent;
         node = node -> parent;
     }
-    return NULL;
+    return nullptr;
 }
 
 template<class T>
@@ -328,7 +328,7 @@ AVLNode<T>* AVLTree<T>::predecessor(AVLNode<T>* node){
             return node -> parent;
         node = node -> parent;
     }
-    return NULL;
+    return nullptr;
 }
 
 template<class T>
@@ -350,7 +350,7 @@ AVLNode<T>* AVLTree<T>::search(T key){
 
 template<class T>
 void  inorder(AVLNode<T>* node){
-    if(node == NULL)
+    if(node == nullptr)
         return;
     inorder(node -> left);
     std::cout << node -> data << "\n";
@@ -360,7 +360,7 @@ void  inorder(AVLNode<T>* node){
 
 template<class T>
 void preorder(AVLNode<T>* node){
-    if(node == NULL)
+    if(node == nullptr)
         return;
     std::cout << node -> data << "\n";
     preorder(node -> left);
